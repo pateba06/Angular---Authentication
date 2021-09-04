@@ -5,7 +5,11 @@ body{
     background: #34495e;
   }
 
-.help-text{
+  .spinner{
+    margin-bottom: 20px;
+  }
+
+  .help-text{
     color: red;
 }
   .box{

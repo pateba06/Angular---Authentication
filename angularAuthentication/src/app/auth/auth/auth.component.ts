@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,8 +10,12 @@ import { FormControl, NgForm } from '@angular/forms';
 export class AuthComponent implements OnInit {
 
   isLoginMode = true;
+  // isLoading for spiner
+  isLoading = false;
+  // variable to show when it is an error
+  error:string =null;
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
   ngOnInit() {
   }
 
@@ -25,7 +30,33 @@ export class AuthComponent implements OnInit {
    * Submiting the form
    */
   onFormSubmit(authForm:NgForm){
-    console.log(authForm.value)
+ 
+    // we are checking if form is valid or not
+    if(!authForm.valid){
+      return;
+    }
+
+    this.isLoading =true;
+
+    // 
+    if(this.isLoginMode){
+      // perform Login Reuest logic
+    } else {
+      // for signing up new user
+      this.authService.signUp(authForm.value.email,authForm.value.password).subscribe((res)=>{
+        console.log(res)
+        // for spinner
+        this.isLoading=false;
+      // error handling
+      }, error=> {
+        console.log(error)
+        // for spinner
+        this.isLoading=false;
+        // for showing error message
+        this.error = "An Error Has Occured. Please Try Again!"
+      })
+    }
+    
   }
 
   /**

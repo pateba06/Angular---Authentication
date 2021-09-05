@@ -1,50 +1,48 @@
 <!-- we would be using template driven form  -->
 <div class="container">
     <div class="row">
-        <div *ngIf="!isLoading" class="text-center my-4 spinner">
-            <!-- loading spinner -->
-            <app-loading-spinner></app-loading-spinner>\
-            <div *ngIf="error" class="alert alert-danger my-4">
+        <div class="col-md-12">
+            <div *ngIf="isLoading" class="text-center spinner">
+                <!-- loading spinner -->
+                <app-loading-spinner></app-loading-spinner>
+            </div>
+            <div *ngIf="error">
                 <!-- error will show if form is not successful -->
-                {{error}}
+                <h6 class="text-center" style="color: red;"> {{error}}</h6>
             </div>
         </div>
-        <form class="box" #authForm="ngForm" (ngSubmit)="onFormSubmit(authForm)" *ngIf="!isLoading">
-            <h1 class="header">Authenticated Login Example - Angular</h1>
-            <div class="form-group">
-                <label for="email">
-                    Email
-                </label>
-                <input type="text" class="form-control" placeholder="Email" ngModel name="email" required email
-                    #email="ngModel" />
-                <div class="help-text" *ngIf="email.touched && !email.valid">
-                    <!-- Instead of writing this we can write the error in ts. please below div.
+        <div class="row">
+
+            <form class="box" #authForm="ngForm" (ngSubmit)="onFormSubmit(authForm)" *ngIf="!isLoading">
+                <h1 class="header margin-top">Authenticated Login Example - Angular</h1>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Email" ngModel name="email" required email
+                        #email="ngModel" />
+                    <div class="help-text" *ngIf="email.touched && !email.valid">
+                        <!-- Instead of writing this we can write the error in ts. please below div.
                 <div *ngIf="email.errors.required">Email Is Required</div>
                 <div *ngIf="email.errors.email">Invalid Email</div> -->
-                    <div>{{getEmailErrors(email)}}</div>
+                        <div>{{getEmailErrors(email)}}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="password">
-                    Password
-                </label>
-                <input type="text" class="form-control" placeholder="passord" ngModel name="password" required
-                    minlength="6" #password="ngModel" />
-                <div class="help-text" *ngIf="password.touched && !password.valid">
-                    <!--Instead of writing this we can write the error in ts. please below div.
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="passord" ngModel name="password" required
+                        minlength="6" #password="ngModel" />
+                    <div class="help-text" *ngIf="password.touched && !password.valid">
+                        <!--Instead of writing this we can write the error in ts. please below div.
                          <div *ngIf="password.errors.required">Password Is Required</div>
                          <div *ngIf="password.errors.minlength">Password should be of 6 characters length</div> -->
-                    <div>{{getPasswordErrors(password)}}</div>
+                        <div>{{getPasswordErrors(password)}}</div>
+                    </div>
                 </div>
-            </div>
-            <div class="mt-4">
-                <button type="submit" class="btn btn-success" [disabled]="!authForm.valid">
-                    {{isLoginMode ? "Login" : "SignUp"}}
-                </button> |
-                <button type="submit" class="btn btn-success" (click)="onSwitchMode()">
-                    Switch To {{isLoginMode? "SignUp" : "Login"}}
-                </button>
-            </div>
-        </form>
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success" [disabled]="!authForm.valid">
+                        {{isLoginMode ? "Login" : "SignUp"}}
+                    </button> |
+                    <button type="submit" class="btn btn-success" (click)="onSwitchMode()">
+                        Switch To {{isLoginMode? "SignUp" : "Login"}}
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
